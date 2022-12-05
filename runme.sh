@@ -58,8 +58,8 @@ if [ "x$SHALLOW" == "xtrue" ]; then
 	SHALLOW_FLAG="--depth 1"
 fi
 BOOT_LOADER=${BOOT_LOADER:-u-boot}
-BOARD_CONFIG=${BOARD_CONFIG:-2}
-CP_NUM=${CP_NUM:-1}
+BOARD_CONFIG=${BOARD_CONFIG:-0}
+CP_NUM=${CP_NUM:-3}
 mkdir -p build images
 ROOTDIR=`pwd`
 PARALLEL=$(getconf _NPROCESSORS_ONLN) # Amount of parallel jobs for the builds
