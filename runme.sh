@@ -54,9 +54,9 @@ RELEASE=${RELEASE:-v5.15}
 DPDK_RELEASE=${DPDK_RELEASE:-v22.07}
 
 SHALLOW=${SHALLOW:true}
-	if [ "x$SHALLOW" == "xtrue" ]; then
-		SHALLOW_FLAG="--depth 1"
-	fi
+if [ "x$SHALLOW" == "xtrue" ]; then
+	SHALLOW_FLAG="--depth 1"
+fi
 BOOT_LOADER=${BOOT_LOADER:-u-boot}
 BOARD_CONFIG=${BOARD_CONFIG:-2}
 CP_NUM=${CP_NUM:-1}
