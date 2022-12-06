@@ -6,10 +6,24 @@ for arg; do
 	--shell|shell)
 		cmd="$cmd shell"
 		opt="-i -t --detach-keys="
-	;;
+		;;
+	--edit)
+		echo
+		echo "Make any changes needed, then exit"
+		echo
+		id=$(docker run --rm -d cn913x_build sleep 3600)
+		docker exec --user root -i -t $id bash
+		echo -n "Commit changes to cn913x_build ?"
+		read ans
+		if [ "x$ans" == "xy" ]; then
+		    docker commit $id cn913x_build
+		fi
+		docker kill $id >/dev/null
+		exit
+		;;
 	*)
 		cmd="$cmd $arg"
-	;;
+		;;
 	esac
 done
 if ! docker image inspect --format=" " cn913x_build 2>/dev/null; then
