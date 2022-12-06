@@ -3,8 +3,8 @@ cmd=./runme.sh
 opt=
 for arg; do
 	case $arg in
-	--shell)
-		cmd=/bin/bash
+	--shell|shell)
+		cmd="$cmd shell"
 		opt="-i -t --detach-keys="
 	;;
 	*)
