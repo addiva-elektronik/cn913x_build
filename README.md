@@ -22,14 +22,13 @@ The build script builds the u-boot, atf and linux components, integrate it with 
 
 THe run-docker.sh scripts automates building using docker. To build with the defaults just run it and it will create the docker container if needed and then start the buld.
 
-Defaults to BOARD_CONFIG=0 CP_NUM=3
-
-> Currently no way to specify another build target without editing run-docker.sh. Should be fixed.
-
 The script optionally takes a list of actions to perform, passed to ./runme.sh (see below).
 
 The --edit option allows manual editing of the docker image if needed. But is generally better to update the docker image definitin in docker/Dockerfile
 
+The --board=n and --cp=n options sets BOARD_CONFIG and CP_NUM respectively selecting the target board type. See below for their usage.  Defaults to BOARD_CONFIG=0 CP_NUM=3
+
+Another board can be specified using --board=n --cp=n
 
 * Build the Docker image (<b>Just once</b>):
 

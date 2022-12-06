@@ -1,8 +1,16 @@
 #!/bin/sh
 cmd=./runme.sh
 opt=
+BOARD_CONFIG=0
+CP_NUM=3
 for arg; do
 	case $arg in
+	--board=*)
+		BOARD_CONFIG=$(echo "$arg" | cut -d= -f2)
+		;;
+	--cp=*)
+		CP_NUM=$(echo "$arg" | cut -d= -f2)
+		;;
 	--shell|shell)
 		cmd="$cmd shell"
 		opt="-i -t --detach-keys="
@@ -35,4 +43,4 @@ exec docker run --rm -i -t \
 	-v $HOME/.gitconfig:/etc/gitconfig \
 	$opt \
 	cn913x_build \
-	env BOARD_CONFIG=0 CP_NUM=3 $cmd
+	env BOARD_CONFIG=${BOARD_CONFIG} CP_NUM=${CP_NUM} $cmd
