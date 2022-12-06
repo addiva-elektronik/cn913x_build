@@ -22,4 +22,5 @@ if [ "x$ans" != "x" ]; then
     echo "# $ans" >> $ROOTDIR/configs/linux/cn913x_additions.config
     echo "" >> $ROOTDIR/configs/linux/cn913x_additions.config
     cat defconfig.diff  >> $ROOTDIR/configs/linux/cn913x_additions.config
+    cp defconfig_manual defconfig_cn913x_additions
 fi
