@@ -5,7 +5,7 @@ make savedefconfig
 mv defconfig defconfig_manual
 ./scripts/diffconfig defconfig_cn913x_additions defconfig_manual | while read opt val; do
 	plus="$(echo "$opt" |cut -c-1)"
-	opt="$(echo "$opt" |cut -c2-)"
+	opt="CONFIG_$(echo "$opt" |cut -c2-)"
 	case "$plus" in
 	"-")
 		val="n"
