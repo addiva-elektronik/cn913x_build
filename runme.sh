@@ -148,6 +148,10 @@ x ubuntu
 
 x u-boot
 
+x linux-config
+
+x linux
+
 if [ "x${BUILD_ROOTFS}" != "xyes" ]; then
 	echo "U-Boot Ready, Skipping RootFS"
 	exit 0

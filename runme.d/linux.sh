@@ -1,7 +1,6 @@
 echo "Building the kernel"
+echo
 cd $ROOTDIR/build/linux
-#make defconfig
-./scripts/kconfig/merge_config.sh arch/arm64/configs/defconfig $ROOTDIR/configs/linux/cn913x_additions.config
 make -j${PARALLEL} all #Image dtbs modules
 
 ROOTFS=$ROOTDIR/images/linux-${KERNEL_RELEASE}
