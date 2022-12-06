@@ -42,5 +42,5 @@ make PLAT=t9130 clean
 make -j${PARALLEL} USE_COHERENT_MEM=0 LOG_LEVEL=20 PLAT=t9130 MV_DDR_PATH=$ROOTDIR/build/mv-ddr-marvell CP_NUM=$CP_NUM all fip
 
 echo "Copying flash-image.bin to /Images folder"
-cp $ROOTDIR/build/arm-trusted-firmware/build/t9130/release/flash-image.bin $ROOTDIR/images/u-boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin
-ln -sf u-boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin $ROOTDIR/images/flash-image.bin
+cp $ROOTDIR/build/arm-trusted-firmware/build/t9130/release/flash-image.bin $ROOTDIR/images/boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin
+ln -sf boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin $ROOTDIR/images/flash-image.bin

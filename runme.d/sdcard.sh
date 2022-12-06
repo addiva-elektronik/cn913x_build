@@ -30,8 +30,10 @@ e2cp -G 0 -O 0 tmp/extlinux/extlinux.conf tmp/ubuntu-core.ext4:extlinux/
 
 dd if=tmp/ubuntu-core.ext4 of=tmp/ubuntu-core.img bs=1M seek=64 conv=notrunc
 rm tmp/ubuntu-core.ext4
-dd if=flash-image.bin of=tmp/ubuntu-core.img bs=512 seek=4096 conv=notrunc
+dd if=boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin of=tmp/ubuntu-core.img bs=512 seek=4096 conv=notrunc
 OUT=$ROOTDIR/images/ubuntu-${DTB_KERNEL}-${KERNEL_RELEASE}-${UBOOT_ENVIRONMENT}.img
 mv tmp/ubuntu-core.img $OUT
 
+echo
 echo "SDCARD image created at $OUT"
+echo
