@@ -18,6 +18,19 @@ The build script builds the u-boot, atf and linux components, integrate it with 
 ## Build
 ### Docker build (recommended)
 
+* Automated build with run-docker.sh
+
+THe run-docker.sh scripts automates building using docker. To build with the defaults just run it and it will create the docker container if needed and then start the buld.
+
+Defaults to BOARD_CONFIG=0 CP_NUM=3
+
+> Currently no way to specify another build target without editing run-docker.sh. Should be fixed.
+
+The script optionally takes a list of actions to perform, passed to ./runme.sh (see below).
+
+The --edit option allows manual editing of the docker image if needed. But is generally better to update the docker image definitin in docker/Dockerfile
+
+
 * Build the Docker image (<b>Just once</b>):
 
 ```
@@ -32,13 +45,64 @@ docker images | grep cn913x_build
 
 * Run the build script:
 ```
-docker run --rm -i -t -v "$PWD":/cn913x_build_dir -v /etc/gitconfig:/etc/gitconfig cn913x_build bash -c "<ARGUMENTS> ./runme.sh"
+docker run --rm -i -t -v "$PWD":/cn913x_build_dir -v $HOME/.gitconfig:/etc/gitconfig cn913x_build bash -c "<ARGUMENTS> ./runme.sh"
 ```
 
-> The git configuration file is mounted, if your gitconfig file is not located in /etc/gitconfig, change the command accordingly, or copy the file to /etc/gitconfig.
+> The git configuration file is mounted, if your gitconfig file is not located in $HOME/.gitconfig, change the command accordingly.
 
 ### Build with host tools
 Simply running ./runme.sh will check for required tools, clone and build images and place results in images/ directory.
+
+### Build process steps
+
+The build process is divided in multiple steps, each step is detailed in runme.d/stepname.sh
+
+The runme.sh script by default runs all steps needed for building an SD-Card image.
+
+You can otionaly run the scrip with an explicit list of actions to perform.
+
+In addition there is some supporting actions to aid in development
+
+Standard steps in the order they are run:
+
+tools
+: Ensures that the required host tools are available
+
+sources
+: Download the required source repositories
+
+ubuntu
+: Build a generic Ubuntu root filesystem (ext4) based on the minimal ubuntu-base filesystem.
+
+u-boot
+: Build the u-boot boot loader and arm trusted firmware which loads u-boot
+
+linux-config
+: Configure the linux kernel with default configuration from config/linux/
+
+linux
+: Build the linux kernel
+
+musdk
+: Build Marvell MUSDK
+
+dpdk
+: Build DPDK
+
+rootfs
+: Install kernel, MUSDK and DPDK in the root filesyetem
+
+sdcard
+: Create an bootable SDCARD image
+
+
+Extra steps for customizing the build
+
+linux-menuconfig
+: Edit the kernel configuration settings
+
+shell
+: Start a shell with the toolchain activated
 
 ## Auto detection of boot device such as SD card, eMMC and SPI
 Currently there no support of distro for auto detection of boot device, however it is under development.

@@ -5,19 +5,6 @@ This is an addendum to the SolidRun [README.md](README.md) focusing on the
 CEx7 CN9132 EVK and creating a reproducible build.
 
 
-Docker Container
-----------------
-
-We need a Docker container to build in.  The scripts were made with and tested
-on Ubuntu 20.04 LTS and have ceased to build with Ubuntu 22.04 LTS and later.
-
-The following command creates a container on your PC that you can reuse later:
-
-
-    docker build --build-arg user=$(whoami) \
-         --build-arg userid=$(id -u) -t cn913x_build docker/
-
-
 Building
 --------
 
@@ -32,14 +19,16 @@ To build you need to have your GIT identity set up in `~/.gitconfig`:
 Now you can start your first build, notice the script arguments to select
 the CEx7 CN9132 EVK.  See the script comments for more information:
 
-    docker run --rm -i -t -v "$PWD":/cn913x_build_dir    \
-        -v ~/.gitconfig:/etc/gitconfig cn913x_build bash \
-        -c "BOARD_CONFIG=0 CP_NUM=3 ./runme.sh"
+    ./run-docker.sh
+
+If needed indivitual steps can be run by listing them.
+
+    ./run-docker.sh linux-menuconfig linux rootfs sdcard
+
 
 > **Note:** There is no safe support for cleaning or restarting a build
 > with some changes.  To be 100% sure of your changes taking effect,
-> remove the `build/` directory.  YMMV
-
+> remove the `build/` directory.  YMMV. Usually works fine.
 
 Gotchas
 -------
