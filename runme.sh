@@ -25,13 +25,13 @@ BUILDROOT_VERSION=2020.02.1
 
 #UBOOT_ENVIRONMENT -
 # - spi (SPI FLash)
-# - mmc:0:0 (MMC 0 Partition 0)
-# - mmc:0:1 (MMC 0 Partition boot0)
-# - mmc:0:2 (MMC 0 Partition boot1)
-# - mmc:1:0 (MMC 1 Partition 0) <-- default, microSD on Clearfog
-# - mmc:1:1 (MMC 1 Partition boot0)
-# - mmc:1:2 (MMC 1 Partition boot1)
-: ${UBOOT_ENVIRONMENT:=mmc:1:2} # default microSD partition 2
+# - mmc:0:0 (MMC 0 Data area)
+# - mmc:0:1 (MMC 0 boot0)
+# - mmc:0:2 (MMC 0 boot1)
+# - mmc:1:0 (MMC 1 Data area) <-- default, microSD on Clearfog
+# - mmc:1:1 (MMC 1 boot0)
+# - mmc:1:2 (MMC 1 boot1)
+: ${UBOOT_ENVIRONMENT:=mmc:1:0} # default microSD partition 0
 
 : ${BUILD_ROOTFS:=yes} # set to no for bootloader-only build
 
