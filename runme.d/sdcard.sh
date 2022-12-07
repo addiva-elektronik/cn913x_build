@@ -48,7 +48,7 @@ resize2fs tmp/ubuntu-core.ext4
 dd if=tmp/ubuntu-core.ext4 of=tmp/ubuntu-core.img bs=1M seek=$root_start conv=notrunc
 rm tmp/ubuntu-core.ext4
 dd if=boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin of=tmp/ubuntu-core.img bs=512 seek=4096 conv=notrunc
-OUT=$ROOTDIR/images/ubuntu-${DTB_KERNEL}-${release}-${UBOOT_ENVIRONMENT}.img
+OUT=$ROOTDIR/images/sdcard-ubuntu-${DTB_KERNEL}-${release}-${UBOOT_ENVIRONMENT}.img
 mv tmp/ubuntu-core.img $OUT
 
 echo
