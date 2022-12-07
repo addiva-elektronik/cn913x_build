@@ -9,7 +9,8 @@ boot_end=4096 # 0x400000 bytes
 env_size=64
 
 mkdir -p tmp
-truncate -s 520M tmp/ubuntu-core.img
+rm -f tmp/ubuntu-core.img
+truncate -s ${size}M tmp/ubuntu-core.img
 sfdisk -q tmp/ubuntu-core.img << %PTBL%
 label: gpt
 unit: sectors
@@ -38,6 +39,11 @@ cat > tmp/extlinux/extlinux.conf << EOF
 EOF
 e2mkdir -G 0 -O 0 tmp/ubuntu-core.ext4:extlinux
 e2cp -G 0 -O 0 tmp/extlinux/extlinux.conf tmp/ubuntu-core.ext4:extlinux/
+
+
+truncate -s $((size-root_start))M tmp/ubuntu-core.ext4
+e2fsck -f tmp/ubuntu-core.ext4
+resize2fs tmp/ubuntu-core.ext4
 
 dd if=tmp/ubuntu-core.ext4 of=tmp/ubuntu-core.img bs=1M seek=$root_start conv=notrunc
 rm tmp/ubuntu-core.ext4
