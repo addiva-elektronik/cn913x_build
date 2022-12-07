@@ -7,7 +7,10 @@ if [[ ! -d $ROOTDIR/build/musdk-marvell-SDK11.22.07 ]]; then
 	git init .
 	git add .
 	git commit -m "musdk-marvell-SDK11.22.07"
-	patch -p1 < $ROOTDIR/patches/musdk/*.patch
+	for patch in $ROOTDIR/patches/musdk/*.patch; do
+	    git apply --index -p1 $patch
+	    git commit -m $(basename $patch .patch)
+	done
 fi
 
 cd $ROOTDIR/build/musdk-marvell-SDK11.22.07
