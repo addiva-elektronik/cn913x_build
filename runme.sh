@@ -163,6 +163,8 @@ fi
 
 # dpdk
 
+x rescue
+
 x rootfs
 
 x sdcard
