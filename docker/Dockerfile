@@ -16,7 +16,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
 	libusb-1.0-0-dev libzip-dev pkg-config g++ \
 	vim qemu-system-arm libtool m4 automake meson \
         pkg-config-aarch64-linux-gnu python3-pip \
-        ncurses-dev
+        ncurses-dev kmod
 
 # Install python packages
 RUN pip3 install pyelftools
