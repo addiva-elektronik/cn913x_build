@@ -1,4 +1,6 @@
 cd images
+release=$(cat kernel_release)
+
 mkdir -p tmp
 truncate -s 520M tmp/ubuntu-core.img
 sfdisk -q tmp/ubuntu-core.img << %PTBL%
@@ -13,7 +15,7 @@ start=64MB name=Linux bootable
 ROOTPART=$(sfdisk --part-uuid tmp/ubuntu-core.img 3)
 sfdisk -d tmp/ubuntu-core.img
 
-cp ubuntu-${DTB_KERNEL}-${KERNEL_RELEASE}.ext4 tmp/ubuntu-core.ext4
+cp ubuntu-$release.ext4 tmp/ubuntu-core.ext4
 mkdir -p tmp/extlinux/
 cat > tmp/extlinux/extlinux.conf << EOF
   TIMEOUT 30
@@ -21,7 +23,7 @@ cat > tmp/extlinux/extlinux.conf << EOF
   MENU TITLE linux-cn913x boot options
   LABEL primary
     MENU LABEL primary kernel
-    LINUX /boot/Image
+    LINUX /boot/linux-${release}
     FDTDIR /boot
     APPEND console=ttyS0,115200 root=PARTUUID=${ROOTPART} rw rootwait cma=256M
 EOF
@@ -31,7 +33,7 @@ e2cp -G 0 -O 0 tmp/extlinux/extlinux.conf tmp/ubuntu-core.ext4:extlinux/
 dd if=tmp/ubuntu-core.ext4 of=tmp/ubuntu-core.img bs=1M seek=64 conv=notrunc
 rm tmp/ubuntu-core.ext4
 dd if=boot-${DTB_UBOOT}-${UBOOT_ENVIRONMENT}.bin of=tmp/ubuntu-core.img bs=512 seek=4096 conv=notrunc
-OUT=$ROOTDIR/images/ubuntu-${DTB_KERNEL}-${KERNEL_RELEASE}-${UBOOT_ENVIRONMENT}.img
+OUT=$ROOTDIR/images/ubuntu-${DTB_KERNEL}-${release}-${UBOOT_ENVIRONMENT}.img
 mv tmp/ubuntu-core.img $OUT
 
 echo

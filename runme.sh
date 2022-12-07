@@ -146,6 +146,8 @@ x sources
 
 x ubuntu
 
+x newbuild
+
 x u-boot
 
 x linux-config
