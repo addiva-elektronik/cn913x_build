@@ -26,8 +26,8 @@ ROOTPART=$(sfdisk --part-uuid tmp/ubuntu-core.img 3)
 sfdisk -d tmp/ubuntu-core.img
 
 cp ubuntu-$release.ext4 tmp/ubuntu-core.ext4
-mkdir -p tmp/extlinux/
-cat > tmp/extlinux/extlinux.conf << EOF
+mkdir -p extlinux/
+cat > extlinux/extlinux.conf << EOF
   TIMEOUT 30
   DEFAULT linux
   MENU TITLE linux-cn913x boot options
@@ -37,8 +37,8 @@ cat > tmp/extlinux/extlinux.conf << EOF
     FDTDIR /boot
     APPEND console=ttyS0,115200 root=PARTUUID=${ROOTPART} rw rootwait cma=256M
 EOF
-e2mkdir -G 0 -O 0 tmp/ubuntu-core.ext4:extlinux
-e2cp -G 0 -O 0 tmp/extlinux/extlinux.conf tmp/ubuntu-core.ext4:extlinux/
+e2mkdir -G 0 -O 0 tmp/ubuntu-core.ext4:boot/extlinux
+e2cp -G 0 -O 0 extlinux/extlinux.conf tmp/ubuntu-core.ext4:boot/extlinux/
 
 
 truncate -s $((size-root_start))M tmp/ubuntu-core.ext4
