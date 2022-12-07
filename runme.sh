@@ -159,9 +159,9 @@ if [ "x${BUILD_ROOTFS}" != "xyes" ]; then
 	exit 0
 fi
 
-x musdk
+# musdk
 
-x dpdk
+# dpdk
 
 x rootfs
 
