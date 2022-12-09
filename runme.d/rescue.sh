@@ -27,10 +27,19 @@ EOF
 
 # Pack the initramfs
 find . -print0 |cpio -0 -o -H newc | gzip -9 > ../tmp/initramfs.cpio.gz
-cd ..
+"
 mkdir -p rescue
 mv tmp/initramfs.cpio.gz rescue/initramfs-$release.cpio.gz
-rm -rf tmp
+cat > tmp/extlinux.conf << EOF
+  TIMEOUT 30
+  DEFAULT $release
+  MENU TITLE linux-cn913x boot options
+  LABEL $release
+    MENU LABEL primary kernel
+    LINUX /boot/linux-${release}
+    FDTDIR /boot
+    APPEND console=ttyS0,115200 cma=256M
+EOF
 cp -rpl rootfs/boot/. rescue/.
-"
+mv tmp/extlinux.conf rescue/
 rm -rf tmp

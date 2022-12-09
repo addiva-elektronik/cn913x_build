@@ -41,10 +41,10 @@ resize2fs tmp/ubuntu-core.ext4 $((rootsize/2/4)) # 512 byte sectors in 4K blocks
 mkdir -p extlinux/
 cat > extlinux/extlinux.conf << EOF
   TIMEOUT 30
-  DEFAULT linux
+  DEFAULT $release
   MENU TITLE linux-cn913x boot options
-  LABEL primary
-    MENU LABEL primary kernel
+  LABEL $release
+    MENU LABEL Linux $release
     LINUX /boot/linux-${release}
     FDTDIR /boot
     APPEND console=ttyS0,115200 root=PARTUUID=${ROOTPART} rw rootwait cma=256M
