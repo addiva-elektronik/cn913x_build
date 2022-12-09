@@ -9,7 +9,7 @@ ROOTFS=$ROOTDIR/images/rootfs
 mkdir -p $ROOTDIR/images/tmp/
 ROOTIMG=$ROOTDIR/images/tmp/ubuntu-core.ext4
 rm -f $ROOTIMG
-cp $ROOTDIR/build/ubuntu-core.ext4 $ROOTIMG
+cp $ROOTDIR/binaries/ubuntu-core.ext4 $ROOTIMG
 
 
 cd $ROOTFS

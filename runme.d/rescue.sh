@@ -10,7 +10,7 @@ mkdir -p tmp
 
 fakeroot bash -e -c "
 cd rescuefs
-zcat $ROOTDIR/build/ubuntu/buildroot/output/images/rootfs.cpio.gz | cpio -i
+zcat $ROOTDIR/binaries/rescuefs.cpio.gz | cpio -i
 rm -rf lib/modules/*
 rm -f etc/init.d/S99bootstrap-ubuntu.sh
 cd ../rootfs

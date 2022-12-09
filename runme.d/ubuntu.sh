@@ -1,4 +1,4 @@
-if [[ ! -f $ROOTDIR/build/ubuntu-core.ext4 ]]; then
+if [[ ! -f $ROOTDIR/binaries/ubuntu-core.ext4 ]]; then
 	if [[ $UBUNTU_VERSION == bionic ]]; then
 		UBUNTU_BASE_URL=http://cdimage.ubuntu.com/ubuntu-base/releases/18.04/release/ubuntu-base-18.04.5-base-arm64.tar.gz
 	fi
@@ -62,8 +62,9 @@ EOF
 	IMG=ubuntu-core.ext4.tmp
 	truncate -s 450M $IMG
 	qemu-system-aarch64 -m 1G -M virt -cpu cortex-a57 -nographic -smp 1 -kernel output/images/Image -append "console=ttyAMA0" -netdev user,id=eth0 -device virtio-net-device,netdev=eth0 -initrd output/images/rootfs.cpio.gz -drive file=$IMG,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -no-reboot
-        mv $IMG $ROOTDIR/build/ubuntu-core.ext4
+        mv $IMG $ROOTDIR/binaries/ubuntu-core.ext4
 
+	cp output/images/rootfs.cpio.gz $ROOTDIR/binaries/rescuefs.cpio.gz
 fi
 
 
