@@ -8,9 +8,9 @@ for i in $SDK_COMPONENTS; do
 	if [[ ! -d $ROOTDIR/build/$i ]]; then
 		if [ "x$i" == "xlinux" ]; then
 			url=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-			echo "Cloing $url release $RELEASE"
+			echo "Cloing $url release $KERNEL_RELEASE"
 			cd $ROOTDIR/build
-			git clone $SHALLOW_FLAG $url linux -b $RELEASE
+			git clone $SHALLOW_FLAG $url linux -b $KERNEL_RELEASE
 		elif [ "x$i" == "xarm-trusted-firmware" ]; then
 			echo "Cloning atf from mainline"
 			cd $ROOTDIR/build
