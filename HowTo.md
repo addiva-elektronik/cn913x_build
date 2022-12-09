@@ -64,7 +64,6 @@ ubuntu-core.  Meaning pretty much nothing is set up for us.  Here's a
 checklist to get started:
 
   * [ ] Change `/etc/hostname`
-  * [ ] Call `depmod` so the `modprobe` tool works, takes a bit of time
   * [ ] Set up basic networking, use left-most Ethernet port (eth1).  We
         have no editor yet, so we use a HERE script:
   
@@ -98,16 +97,6 @@ checklist to get started:
 
 > **Note:** if the serial console gets garbled during any of the above
 > commands, use `reset` and `stty sane` to restore it.
-
-To get modprobe to work, patiently wait for this command to finish:
-
-    depmod
-
-Now you can insert modules:
-
-    for m in sch_hfsc vxlan wireguard bridge 8021q; do \
-        modprobe $m; \
-    done
 
 Bridge Setup
 ------------
