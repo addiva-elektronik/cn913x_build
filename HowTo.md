@@ -94,7 +94,7 @@ checklist to get started:
 
   * [ ] Add other useful tools:
 
-        apt install -y nano vim mg nftables wireguard
+        apt install -y nano vim mg nftables wireguard-tools
 
 > **Note:** if the serial console gets garbled during any of the above
 > commands, use `reset` and `stty sane` to restore it.
