@@ -1,0 +1,43 @@
+From 9efb1302077e5e9d8b8f09283370775c603fdba4 Mon Sep 17 00:00:00 2001
+From: Henrik Nordstrom <henrik.nordstrom@addiva.se>
+Date: Fri, 9 Dec 2022 14:23:01 +0100
+Subject: [PATCH] u-boot: Addiva default environment
+
+Set default environment for CN9132 EVK board
+
+Signed-off-by: Henrik Nordstrom <henrik.nordstrom@addiva.se>
+---
+ include/configs/octeontx2_cn913x.h | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/include/configs/octeontx2_cn913x.h b/include/configs/octeontx2_cn913x.h
+index d01644fcb5..df49536574 100644
+--- a/include/configs/octeontx2_cn913x.h
++++ b/include/configs/octeontx2_cn913x.h
+@@ -32,15 +32,22 @@
+ 	func(PXE, pxe, na) \
+ 	func(DHCP, dhcp, na)
+ 
++#undef CONFIG_ETHPRIME
++#define CONFIG_ETHPRIME "eth1"
++
+ #include <config_distro_bootcmd.h>
+ 
+ #undef CONFIG_EXTRA_ENV_SETTINGS
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	"kernel_addr_r=0x7000000\0" \
+ 	"fdt_addr_r=0x6f00000\0" \
+-	"ramdisk_addr_r=0x9000000\0" \
++	"ramdisk_addr_r=0xa000000\0" \
+ 	"scriptaddr=0x6e00000\0" \
+ 	"pxefile_addr_r=0x6000000\0" \
++	"ethact=mvpp2-1\0" \
++	"fdtfile=marvell/cn9132-cex7.dtb\0" \
++	"bootargs=console=ttyS0,115200 cma=256M\0" \
++	"netboot=dhcp\ntftp $kernel_addr_r linux-$netboot_version\ntftp $ramdisk_addr_r initramfs-$netboot_version.cpio.gz\n;setenv ramdisk_size $filesize\nbooti $kernel_addr_r ${ramdisk_addr_r}:${ramdisk_size} $fdt_addr_r\0" \
+ 	BOOTENV
+ 
+ /* RTC configuration */
+-- 
+2.25.1
+
