@@ -10,11 +10,11 @@ for i in $SDK_COMPONENTS; do
 			url=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
 			echo "Cloing $url release $KERNEL_RELEASE"
 			cd $ROOTDIR/build
-			git clone $SHALLOW_FLAG $url linux -b $KERNEL_RELEASE
+			git clone $SHALLOW_FLAG --reference-if-able ../git/linux $url linux -b $KERNEL_RELEASE
 		elif [ "x$i" == "xarm-trusted-firmware" ]; then
 			echo "Cloning atf from mainline"
 			cd $ROOTDIR/build
-			git clone https://github.com/ARM-software/arm-trusted-firmware.git arm-trusted-firmware
+			git clone --reference-if-able ../git/arm-trusted-firmware https://github.com/ARM-software/arm-trusted-firmware.git arm-trusted-firmware
 			cd arm-trusted-firmware
 			# Temporary commit waiting for a release
 			git checkout 00ad74c7afe67b2ffaf08300710f18d3dafebb45
@@ -22,19 +22,19 @@ for i in $SDK_COMPONENTS; do
 			echo "Cloning mv-ddr-marvell from mainline"
 			echo "Cloing https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell.git"
 			cd $ROOTDIR/build
-			git clone https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell.git mv-ddr-marvell
+			git clone --reference-if-able ../git/mv-ddr-marvell https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell.git mv-ddr-marvell
 			cd mv-ddr-marvell
 			git checkout mv-ddr-devel
 		elif [ "x$i" == "xu-boot" ]; then
 			echo "Cloning u-boot from git://git.denx.de/u-boot.git"
 			cd $ROOTDIR/build
-			git clone git://git.denx.de/u-boot.git u-boot
+			git clone --reference-if-able ../git/u-boot git://git.denx.de/u-boot.git u-boot
 			cd u-boot
 			git checkout v2019.10 -b marvell
 		elif [ "x$i" == "xdpdk" ]; then
                         echo "Cloning DPDK from https://github.com/DPDK/dpdk.git"
                         cd $ROOTDIR/build
-                        git clone $SHALLOW_FLAG https://github.com/DPDK/dpdk.git dpdk -b $DPDK_RELEASE
+                        git clone $SHALLOW_FLAG --reference-if-able ../git/dpdk https://github.com/DPDK/dpdk.git dpdk -b $DPDK_RELEASE
 			# Apply release specific DPDK patches
 			if [ -d $ROOTDIR/patches/dpdk-$DPDK_RELEASE ]; then
 				cd dpdk
