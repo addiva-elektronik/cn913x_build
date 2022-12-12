@@ -14,7 +14,7 @@ diff --git a/include/configs/octeontx2_cn913x.h b/include/configs/octeontx2_cn91
 index d01644fcb5..df49536574 100644
 --- a/include/configs/octeontx2_cn913x.h
 +++ b/include/configs/octeontx2_cn913x.h
-@@ -32,15 +32,22 @@
+@@ -32,15 +32,21 @@
  	func(PXE, pxe, na) \
  	func(DHCP, dhcp, na)
  
@@ -31,10 +31,9 @@ index d01644fcb5..df49536574 100644
 +	"ramdisk_addr_r=0xa000000\0" \
  	"scriptaddr=0x6e00000\0" \
  	"pxefile_addr_r=0x6000000\0" \
-+	"ethact=mvpp2-1\0" \
 +	"fdtfile=marvell/cn9132-cex7.dtb\0" \
 +	"bootargs=console=ttyS0,115200 cma=256M\0" \
-+	"netboot=dhcp\ntftp $kernel_addr_r linux-$netboot_version\ntftp $ramdisk_addr_r initramfs-$netboot_version.cpio.gz\n;setenv ramdisk_size $filesize\nbooti $kernel_addr_r ${ramdisk_addr_r}:${ramdisk_size} $fdt_addr_r\0" \
++	"netboot=dhcp\ntftp ${fdt_addr_r} ${netboot_path}${fdtfile}\ntftp ${kernel_addr_r} ${netboot_path}linux${netboot_version}\ntftp ${ramdisk_addr_r} ${netboot_path}initramfs${netboot_version}.cpio.gz;setenv ramdisk_size ${filesize}\nbooti ${kernel_addr_r} ${ramdisk_addr_r}:${ramdisk_size} ${fdt_addr_r}\0" \
  	BOOTENV
  
  /* RTC configuration */
