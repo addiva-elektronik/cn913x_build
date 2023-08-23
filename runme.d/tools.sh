@@ -6,7 +6,7 @@ for i in $TOOLS; do
         if [ "x$TOOL_PATH" == "x" ]; then
                 echo "Tool $i is not installed"
                 echo "If running under apt based package management you can run -"
-                echo "sudo apt install build-essential git dosfstools e2fsprogs parted sudo mtools p7zip p7zip-full device-tree-compiler acpica-tools u-boot-tools e2tools qemu-system-arm libssl-dev cpio rsync bc bison flex python unzip"
+                echo "sudo apt install build-essential git dosfstools e2fsprogs parted sudo mtools p7zip p7zip-full device-tree-compiler acpica-tools u-boot-tools e2tools qemu-system-arm libssl-dev cpio rsync bc bison flex python unzip kmod"
                 exit -1
         fi
 done

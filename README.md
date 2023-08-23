@@ -8,7 +8,7 @@ They are used in SolidRun to quickly build images for development where those im
 The sources are pulled from:
 1. arm-trusted firmware: https://github.com/ARM-software/arm-trusted-firmware.git
 2. mv-ddr-marvell:  https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell.git
-3. u-boot: currently from marvell SDK
+3. u-boot: git://git.denx.de/u-boot.git v2019.10
 4. linux: https://github.com/torvalds/linux.git
 5. patches are supplied by Solid-Run in the patches/ directory
 6. binaries are supplied by Solid-Run in the binaries/ directory
@@ -129,17 +129,6 @@ There are a few parameters that must be taken to account:
         `BOARD_CONFIG=0 CP_NUM=3 ./runme`
 	generates *images/cn9132-cex7_config_0_ubuntu.img*
 
-## U-Boot based on Marevll's SDK
-The CN913x u-boot is not public yet, and is taken from Marvell's SDK10
-
-In order to use the script with the SDK patches, create a directory in ROOTDIR:
-
-`mkdir $ROOTDIR/patches-sdk-u-boot/`
-
-The script will apply the u-boot patches onto the mainline u-boot. In order to do so:
-
-Extract the git-u-boot-<version>-<release>.tar.bz2 under the destination folder git-u-boot-<version>-<release> and copy the patches to $ROOTDIR/patches-sdk-u-boot/
-
 
 ## DDR configuration and EEPROM
 The atf dram_port.c supports both CN9132 CEx7 SO-DIMM with SPD and CN9130 SOM with DDRs soldered on board which might have various configurations and are set according to boot straps MPPs[11:10].
@@ -211,7 +200,7 @@ The runme script will clone the version specified by the <b>DPDK_RELEASE</b> arg
 
 > Please note that once DPDK is cloned, it won't be cloned again, even if the DPDK_RELEASE argument is different. Please delete the build/dpdk directory in order to invoke a new clone.
 
-## Running DPDK
+### Running DPDK
 Allocate hugepages for DPDK, for example:
 
 ```
@@ -231,7 +220,19 @@ Run test-pmd
 In order to use all three interfaces, the next command can be used:
 
 ```
-/root/dpdk/dpdk-testpmd --vdev=eth_mvpp2,iface=eth0,iface=eth1,iface=eth2 -- --txd=1024 --txpkts=1500 --tx-first --auto-start --forward-mode=txonly --nb-cores=1 --stats-period=1
+dpdk-testpmd --vdev=eth_mvpp2,iface=eth0,iface=eth1,iface=eth2 -- --txd=1024 --txpkts=1500 --tx-first --auto-start --forward-mode=txonly --nb-cores=1 --stats-period=1
 ```
 
-> At the moment, switching back from DPDK to Linux kernel is not possible, so, once a DPDK applciation starts, the linux kernel won't be able to use the network interfaces.
+The output image will have the following DPDK applications:
+* dpdk-testpmd
+* dpdk-l2fwd
+* dpdk-l3fwd
+
+More applications can be copied from ```build/dpdk/build/examples``` or ```build/dpdk/build/app```
+
+## VPP
+
+VPP is supported for all native interfaces of CN9130, CN9131, CN9132.
+However interfaces connected to managed ethernet switches (e.g. Clearfog Pro) are not supported.
+
+Please see [vpp.md](vpp.md) for details.

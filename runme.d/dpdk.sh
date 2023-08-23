@@ -4,6 +4,7 @@ meson build -Dexamples=all --cross-file $ROOTDIR/configs/dpdk/arm64_armada_solid
 ninja -C build
 
 ROOTFS=$ROOTDIR/images/rootfs
-mkdir -p $ROOTFS/root/dpdk
-cp -p build/app/dpdk-testpmd $ROOTFS/root/dpdk/
-
+mkdir -p $ROOTFS/usr/bin
+cp -p build/app/dpdk-testpmd $ROOTFS/usr/bin/
+cp -p build/examples/dpdk-l2fwd $ROOTFS/usr/bin/
+cp -p build/examples/dpdk-l3fwd $ROOTFS/usr/bin/

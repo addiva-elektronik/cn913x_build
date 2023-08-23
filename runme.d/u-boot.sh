@@ -24,6 +24,8 @@ fi
 make olddefconfig
 make -j${PARALLEL} DEVICE_TREE=$DTB_UBOOT
 cp $ROOTDIR/build/u-boot/u-boot.bin $ROOTDIR/images/u-boot.bin
+install -m644 -D $ROOTDIR/build/u-boot/u-boot.bin $ROOTDIR/images/u-boot.bin
+
 export BL33=$ROOTDIR/images/u-boot.bin
 
 if [ "x$BOOT_LOADER" == "xuefi" ]; then

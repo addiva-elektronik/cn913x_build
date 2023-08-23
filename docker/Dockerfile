@@ -15,8 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
 	libusb-1.0-0 bzip2 libbz2-dev libbz2-1.0 \
 	libusb-1.0-0-dev libzip-dev pkg-config g++ \
 	vim qemu-system-arm libtool m4 automake meson \
-        pkg-config-aarch64-linux-gnu python3-pip \
-        ncurses-dev kmod
+        pkg-config-aarch64-linux-gnu python3-pip kmod \
+        ncurses-dev
 
 # Install python packages
 RUN pip3 install pyelftools
@@ -35,7 +35,7 @@ RUN if [ -z "$user" ]; then printf "\n\nPlease pass the user argument\n\n"; exit
 RUN if [ -z "$userid" ]; then printf "\n\nPlease pass the userid argument\n\n"; exit -1; fi
 
 # Add user
-RUN useradd -u $userid $user
+RUN test "$userid" -eq 0 || useradd -u $userid $user
 
 # Run as user
 USER $user
